@@ -1,8 +1,9 @@
 import React from 'react'
 import TaskItem from './TaskItem';
 
-const TaskList = () => {
+const TaskList = ({allTasks}) => {
     const tasks = [
+        ...allTasks,
         {id : 1,title : 'Task 1',description:'This is the first task'},
         {id : 2,title : 'Task 2',description:'This is the second task'}
     ];
