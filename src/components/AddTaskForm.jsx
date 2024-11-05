@@ -14,7 +14,10 @@ const AddTaskForm = ({ addTask }) => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="mb-4 bg-white p-4 rounded shadow">
+    <form
+      onSubmit={onSubmitHandler}
+      className="mb-4 bg-white p-4 rounded shadow"
+    >
       <h3 className="font-semibold mb-2">Add new task</h3>
       <input
         type="text"
