@@ -1,26 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTaskForm from "./components/AddTaskForm";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import TaskList from "./components/TaskList";
+import { addTask, deleteTask, getTasks, updateTask } from "./FireStoreService";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const addTask = (newTask) => {
-    const taskWithId = { ...newTask, id: Date.now() };
-    setTasks([...tasks, taskWithId]);
-    console.log(tasks);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const fetchedTasks = await getTasks();
+      setTasks(fetchedTasks);
+    };
+    fetchTasks();
+  }, []);
+
+  const handleAddTask = async (newTask) => {
+    await addTask(newTask);
+    const updatedTasks = await getTasks();
+    setTasks(updatedTasks);
   };
 
-  const updateTask = (id, updatedTask) => {
-    setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, ...updatedTask } : task))
-    );
+  const handleUpdateTask = async (id, updatedTask) => {
+    await updateTask(id, updatedTask);
+    const updatedTasks = await getTasks();
+    setTasks(updatedTasks);
   };
 
-  const deleteTask = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+  const handleDeleteTask = async (id) => {
+    await deleteTask(id);
+    const updatedTasks = await getTasks();
+    setTasks(updatedTasks);
   };
   return (
     <div className={isDarkMode ? "dark" : ""}>
@@ -32,11 +44,11 @@ function App() {
         <div className="flex-1 p-4 flex flex-col">
           <Header isDark={isDarkMode} setDark={setIsDarkMode} />
           <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-600">
-            <AddTaskForm addTask={addTask} />
+            <AddTaskForm addTask={handleAddTask} />
             <TaskList
               allTasks={tasks}
-              onDelete={deleteTask}
-              onUpdate={updateTask}
+              onDelete={handleDeleteTask}
+              onUpdate={handleUpdateTask}
             />
           </main>
         </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 const Sidebar = () => {
   return (
-    <aside className="w-64 bg-white dark:bg-gray-800 shadow-md h-screen flex flex-col">
+    <aside className="w-64 bg-white dark:bg-gray-800 shadow-md  flex flex-col">
       <div className="flex items-center justify-center h-16 border-b border-gray-200 dark:bg-gray-700">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
           My Tasks
