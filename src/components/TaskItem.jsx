@@ -15,7 +15,7 @@ const TaskItem = (props) => {
     setIsEditing(false);
   };
   return (
-    <div className="bg-white p-3 rounded shadow flex justify-between items-center text-gray-900">
+    <div className="bg-white p-3 rounded shadow flex justify-between items-center text-white-900 dark:bg-gray-800">
       {isEditing ? (
         <div>
           <input

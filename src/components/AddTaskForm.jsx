@@ -16,22 +16,22 @@ const AddTaskForm = ({ addTask }) => {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="mb-4 bg-white p-4 rounded shadow"
+      className="mb-4 bg-white p-4 rounded shadow dark:bg-gray-800"
     >
-      <h3 className="font-semibold mb-2">Add new task</h3>
+      <h3 className="font-semibold mb-2 dark:text-white-100">Add new task</h3>
       <input
         type="text"
         placeholder="Task title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full p-2 border mb-2 border-gray-300 rounded"
+        className="w-full p-2 border mb-2 border-gray-300 rounded dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         required
       />
       <textarea
         placeholder="Task Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="w-full p-2 border mb-2 border-gray-300 rounded"
+        className="w-full p-2 border mb-2 border-gray-300 rounded dark:border-gray-600 dark:bg-gray-700 dark:text-white"
         required
       />
       <button

@@ -6,6 +6,7 @@ import TaskList from "./components/TaskList";
 
 function App() {
   const [tasks, setTasks] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const addTask = (newTask) => {
     const taskWithId = { ...newTask, id: Date.now() };
     setTasks([...tasks, taskWithId]);
@@ -22,16 +23,25 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
   return (
-    <>
-      <div className="flex min-h-screen bg-gray-100 text-gray-800">
+    <div className={isDarkMode ? "dark" : ""}>
+      <div
+        className="flex min-h-screen bg-gray-100 text-gray-800 dark:bg-gray-900
+      dark:text-gray-100 transition-colors duration-0"
+      >
         <Sidebar />
-        <div className="flex-1 p-4">
-          <Header />
-          <AddTaskForm addTask={addTask} />
-          <TaskList allTasks={tasks} onDelete = {deleteTask} onUpdate = {updateTask} />
+        <div className="flex-1 p-4 flex flex-col">
+          <Header isDark={isDarkMode} setDark={setIsDarkMode} />
+          <main className="flex-1 p-6 bg-gray-100 dark:bg-gray-600">
+            <AddTaskForm addTask={addTask} />
+            <TaskList
+              allTasks={tasks}
+              onDelete={deleteTask}
+              onUpdate={updateTask}
+            />
+          </main>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
