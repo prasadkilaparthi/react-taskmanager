@@ -3,11 +3,16 @@ import AddTaskForm from "./components/AddTaskForm";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import TaskList from "./components/TaskList";
+import Signup from "./components/Signup";
 import { addTask, deleteTask, getTasks, updateTask } from "./FireStoreService";
+import { signup,login ,logout } from "./FireStoreService";
+import Login from "./components/Login";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [user,setUser] = useState(null);
+  const [isSignup,setIsSignup] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -34,6 +39,21 @@ function App() {
     const updatedTasks = await getTasks();
     setTasks(updatedTasks);
   };
+
+  const handleSignup = async (email, password) => {
+    try {
+      await signup(email,password);
+      alert("Account created successfully !!");
+    }
+    catch(error) {
+      console.error("Error in creationg account",error);
+    }
+  };
+  if(!user){
+    isSignup?
+    (<Signup onSignup ={handleSignup}/>):
+    null
+  }
   return (
     <div className={isDarkMode ? "dark" : ""}>
       <div
@@ -53,6 +73,7 @@ function App() {
           </main>
         </div>
       </div>
+      
     </div>
   );
 }

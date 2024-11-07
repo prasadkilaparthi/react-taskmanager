@@ -1,5 +1,6 @@
-import { addDoc, collection, deleteDoc, getDocs, updateDoc ,doc} from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db } from "./FirebaseConfig";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const taskCollection = collection(db, "tasks");
 
@@ -20,4 +21,16 @@ export const updateTask = async (id, updatedTask) => {
 export const deleteTask = async (id) => {
     const taskDoc = doc(db,"tasks",id);
     await deleteDoc(taskDoc);
-}
+};
+
+export const signup = async (email,password) => {
+    return await createUserWithEmailAndPassword(auth,email,password);
+};
+
+export const login = async (email, password) => {
+    return await signInWithEmailAndPassword(auth,email,password);
+};
+
+export const logout = async () => {
+    return await signOut(auth);
+};
